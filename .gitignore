@@ -1,5 +1,4 @@
 node_modules/
-build/
 solutions-pas-a-pas/*
 *.zip
 .DS_Store
