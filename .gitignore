@@ -1,10 +1,10 @@
 node_modules/
-solutions-pas-a-pas/03
-solutions-pas-a-pas/04
-solutions-pas-a-pas/05
-solutions-pas-a-pas/06
-solutions-pas-a-pas/07
-solutions-pas-a-pas/08
+solutions-pas-a-pas/03 - Routing et données dynamiques avec Props
+solutions-pas-a-pas/04 - Utiliser les évènements
+solutions-pas-a-pas/05 - Se déplacer avec React Router
+solutions-pas-a-pas/06 - Comprendre le State
+solutions-pas-a-pas/07 - Ajouter de la donnée dans le state au clic
+solutions-pas-a-pas/08 - Afficher le State avec JSX
 solutions-pas-a-pas/09
 solutions-pas-a-pas/10
 solutions-pas-a-pas/11
