@@ -57,7 +57,7 @@ const veggies = {
   },
 
   veggie8: {
-    name: 'Frisee',
+    name: 'Frisée',
     image: 'https://www.mon-marche.fr/upload/rayonnage/229/img_338/456x338.jpg',
     desc: 'Les salades frisées sont classées comme des chicorées. Plus techniquement, la Frisée est une chicorée lourde à coeur plein',
     price: 326,
