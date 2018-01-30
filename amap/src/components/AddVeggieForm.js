@@ -13,7 +13,7 @@ class AddVeggieForm extends React.Component {
 		}
 
 		this.props.addVeggie(veggie);
-		console.log(veggie);
+		// console.log(veggie);
 		this.veggieForm.reset(); //On vide les champs de saisies
 	}
 
