@@ -26,14 +26,15 @@ class StorePicker extends React.Component {
 		this.props.history.push(`store/${storeId}`)
 	}
 	render() {
+
 		return (
-			<form className="store-selector" onSubmit={(e) => this.goToStore(e) }>
-				<h2>Entrez un nom de magasin</h2>
-				<input type="text" ref={(input) => { this.storeInput = input}} required placeholder="Nom du magasin" defaultValue={ getFunName()} ref={(input) => { this.storeInput = input}}/> 
-				{/*{ getFunName() } Syntax pour appeler le javascript*/ }
-				<button type="submit">Visiter le magasin</button>
+			<form className="store-selector" onSubmit={(e) => this.goToStore(e)}>
+			  <h2>Entrez un nom de magasin</h2>
+			  <input type="text" required placeholder="Nom du magasin" defaultValue={getFunName()} ref={(input) => { this.storeInput = input}}/>
+			  {/*{ getFunName() } Syntax pour appeler le javascript*/ }
+			  <button type="submit">Visiter le magasin →</button>
 			</form>
-		)
+		  )
 	}
 }
 

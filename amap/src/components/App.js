@@ -14,7 +14,8 @@ class App extends React.Component {
 		this.loadSamples = this.loadSamples.bind(this);
 
 		this.state = {
-			veggies: {}
+			veggies: {},
+			order: {}
 		}
 	}
 
@@ -30,6 +31,7 @@ class App extends React.Component {
 	}
 	
 	loadSamples() {
+		console.log(sampleVeggies)
 		this.setState({
 		  veggies: sampleVeggies
 		});
@@ -38,13 +40,13 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="amap">
-				<div className="menu">
-					<Header tagline="Les bons legumes"/>
-				</div>
-				<Order/>
-				<Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples}/>
+			  <div className="menu">
+				<Header tagline="Des bons legumes" />
+			  </div>
+			  <Order />
+			  <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples} />
 			</div>
-		)
+		  )
 	}
 }
 

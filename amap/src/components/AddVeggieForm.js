@@ -19,17 +19,17 @@ class AddVeggieForm extends React.Component {
 
 	render() {
 		return (
-			<form ref={(input) => { this.veggieForm = input}} className="veggie-edit" onSubmit={(e) => this.createVeggie(e)}>
-				<input ref={(input) => { this.name = input}} type="text" placeholder="Veggie Name"/>
-				<input ref={(input) => { this.price = input}} type="text" placeholder="Veggie Price"/>
-				<select ref={(input) => { this.status = input}}>
-					<option value="available">Frais!</option>
-					<option value="unavailable">Y'en a plus!</option>
-				</select>
-				<textarea ref={(input) => { this.desc = input}} placeholder="Veggie Description"></textarea>
-				<input ref={(input) => { this.image = input}} type="text" placeholder="Veggie Image"/>
-				<button type="submit">Ajouter un article au panier</button>
-			</form>
+		  <form ref={(input) => this.veggieForm = input} className="veggie-edit" onSubmit={(e) => this.createVeggie(e)}>
+			<input ref={(input) => this.name = input} type="text" placeholder="Veggie Name" />
+			<input ref={(input) => this.price = input} type="text" placeholder="Veggie Price" />
+			<select ref={(input) => this.status = input}>
+			  <option value="available">Frais!</option>
+			  <option value="unavailable">Plus en stock!</option>
+			</select>
+			<textarea ref={(input) => this.desc = input} placeholder="Veggie Desc" ></textarea>
+			<input ref={(input) => this.image = input} type="text" placeholder="Veggie Image" />
+			<button type="submit">+ Ajouter un article</button>
+		  </form>
 		)
 	}
 }
