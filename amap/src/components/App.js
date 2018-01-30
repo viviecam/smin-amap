@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Header';
 import Inventory from './Inventory';
 import Order from './Order';
+import Veggie from './Veggie';
 import sampleVeggies from '../sample-veggies';
 
 
@@ -42,6 +43,13 @@ class App extends React.Component {
 			<div className="amap">
 			  <div className="menu">
 				<Header tagline="Des bons legumes" />
+					<ul className="list-of-veggies">
+					{
+						Object
+							.keys(this.state.veggies)
+							.map(key =><Veggie key = {key} details={this.state.veggies[key]}/>)
+					}
+					</ul>
 			  </div>
 			  <Order />
 			  <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples} />
