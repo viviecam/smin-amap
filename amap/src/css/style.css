@@ -1,3 +1,8 @@
+/* CUSTOM CSS Camille VIVIER*/
+
+
+/* END CUSTOM CSS*/
+
 .order-enter {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -452,7 +457,14 @@ ul.order li span.count span {
   margin-bottom: 5px;
   clear: both;
   overflow: hidden;
+  display: flex;
+  flex-direction: column 
 }
+
+.menu-veggie > div {
+  align-self: center;
+}
+
 .menu-veggie p {
   margin: 0;
   font-size: 1.8rem;
@@ -462,6 +474,7 @@ ul.order li span.count span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -479,6 +492,7 @@ ul.order li span.count span {
   float: left;
   width: 150px;
   margin-right: 1rem;
+  align-self: center
 }
 button,
 input[type=submit] {
@@ -499,8 +513,9 @@ input[type=submit][disabled] {
   color: #d12028;
   background: #fff;
   border-color: #d12028;
-  -webkit-transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
-          transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
+  width: 150px;
+  -webkit-transform: rotate(-10deg) scale(2) translateX(40%) translateY(-190%);
+          transform: rotate(-10deg) scale(2) translateX(40%) translateY(-190%);
 }
 button[disabled]:hover,
 input[type=submit][disabled]:hover {

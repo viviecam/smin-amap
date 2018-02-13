@@ -15,10 +15,13 @@
   },
   "dependencies": {
     "history": "4.7.2",
+    "material-ui": "^1.0.0-beta.33",
     "re-base": "3.2.0",
     "react": "16.2.0",
     "react-addons-css-transition-group": "15.6.2",
     "react-dom": "16.2.0",
+    "react-lazy-load": "^3.0.13",
+    "react-lazyload": "^2.3.0",
     "react-router": "^4.2.0",
     "react-router-dom": "4.2.2"
   },

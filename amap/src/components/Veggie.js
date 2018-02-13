@@ -1,4 +1,5 @@
 import React from 'react';
+import LazyLoad from 'react-lazy-load';
 import { formatPrice } from '../helpers';
 
 class Veggie extends React.Component {
@@ -27,7 +28,9 @@ class Veggie extends React.Component {
 
 		return (
 			<li className="menu-veggie">
-                <img src={details.image} alt=""/>
+                <LazyLoad height={150} offsetVertical={700}>
+                    <img src={details.image} alt=""/>
+                </LazyLoad>
                 <h3 className="veggie-name">
                     {details.name}
                     <span className="price">{formatPrice(details.price)}</span>

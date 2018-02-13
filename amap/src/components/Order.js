@@ -1,4 +1,5 @@
 import React from 'react';
+import { withStyles } from 'material-ui/styles';
 import { formatPrice } from '../helpers';
 
 class Order extends React.Component {

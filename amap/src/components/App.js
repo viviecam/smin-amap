@@ -81,24 +81,24 @@ class App extends React.Component {
 		this.setState({order});
 
 		// On ajoute au localStorage
-		var orderToStock = {order}
-		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
+		// var orderToStock = {order}
+		// localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
 	}
 
 	// Avant de rendre la page, à chaque rechargement
-	componentWillMount(){
-		if ((typeof JSON.parse(localStorage.getItem('currentOrder')) !== "undefined") 
-		  && (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
-		  this.setState({
-			order: JSON.parse(localStorage.getItem('currentOrder')).order
-		  })
-		} 
-		else {
-		  this.setState({
-			order: {}
-		  })
-		}
-  	}
+	// componentWillMount(){
+	// 	if ((typeof JSON.parse(localStorage.getItem('currentOrder')) !== "undefined") 
+	// 	  && (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
+	// 	  this.setState({
+	// 		order: JSON.parse(localStorage.getItem('currentOrder')).order
+	// 	  })
+	// 	} 
+	// 	else {
+	// 	  this.setState({
+	// 		order: {}
+	// 	  })
+	// 	}
+  	// }
 
 	render() {
 		return (
