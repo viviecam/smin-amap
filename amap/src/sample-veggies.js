@@ -31,7 +31,7 @@ const veggies = {
     name: 'Champignons de Paris',
     image: 'https://www.mon-marche.fr/upload/rayonnage/286/img_338/456x338.jpg',
     desc: 'Le plus familier de nos champignons demeure un ingrédient incontournable de nombreuses recettes traditionnelles.',
-    price: 408,
+    price: 400,
     status: 'available',
     nbAvailable: 10
   },
@@ -78,7 +78,7 @@ const veggies = {
     desc: "L'oignon est une plante potagère dont le bulbe, d'une saveur et d'une odeur forte, est très employé en cuisine.",
     price: 186,
     status: 'available',
-    nbAvailable: 1
+    nbAvailable: 2
   }
 };
 

@@ -1,8 +1,19 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
 import { formatPrice } from '../helpers';
 
 class Order extends React.Component {
+
+	getVeggieToRemove(veggieKey) {
+        const veggie = {
+            name: veggieKey.name,
+            price: veggieKey.price,
+            status: veggieKey.status,
+            nbItem: veggieKey.nbItem,
+            nbAvailable: veggieKey.nbAvailable
+        }
+        this.props.removeVeggieToOrder(veggie)
+    }
+
 	render() {
 		var that = this
 		var totalPrice = 0
@@ -17,7 +28,10 @@ class Order extends React.Component {
 							.map(function (key) {
 								return (
 									<li>
-										<p>{that.props.veggieToOrder[key].nbItem} kg {that.props.veggieToOrder[key].name}</p>
+										<p>{that.props.veggieToOrder[key].nbItem} kg {that.props.veggieToOrder[key].name}
+										</p>
+										{/* Je passe le veggie en cours (en entier) */}
+										<i onClick={() => that.getVeggieToRemove(that.props.veggieToOrder[key])} class="fas fa-minus-circle"></i>
 										{formatPrice(that.props.veggieToOrder[key].price)}
 									</li>)
 							})
@@ -28,6 +42,7 @@ class Order extends React.Component {
 							Object
 								.keys(this.props.veggieToOrder)
 								.map(function (key) {
+									// console.log(that.props.veggieToOrder[key].price)
 									totalPrice = totalPrice + that.props.veggieToOrder[key].price
 									// totalPrice = formatPrice(totalPrice)
 									// console.log(totalPrice)

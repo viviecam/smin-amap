@@ -15,6 +15,7 @@ class App extends React.Component {
 		this.addVeggie = this.addVeggie.bind(this);
 		this.loadSamples = this.loadSamples.bind(this);
 		this.addVeggieToOrder = this.addVeggieToOrder.bind(this);
+		this.removeVeggieToOrder = this.removeVeggieToOrder.bind(this);
 
 		this.state = {
 			veggies: {},
@@ -49,7 +50,9 @@ class App extends React.Component {
 		const order = {...this.state.order}
 		const veggies = {...this.state.veggies}
 
-		//Pour ajouter le legume en cours
+		var currentVeggieUnitPrice = 1
+
+		//Pour ajouter le légume en cours
 		Object
 			.keys(order)
 			.map(function (key){
@@ -58,11 +61,11 @@ class App extends React.Component {
 				if (order[key].name === veggie.name && order[key].nbItem === veggie.nbAvailable-1) {
 					// On rajoute le dernier item
 					veggie.nbItem = order[key].nbItem + 1
-					// Et on change le status du veggie dans la liste des veggies
 					Object
 						.keys(veggies)
 						.map(function (key2){
 							if (veggies[key2].name === veggie.name) {
+								// Et on change le status du veggie dans la liste des veggies
 								veggies[key2].status = "unavailable"
 							}
 						})
@@ -70,35 +73,96 @@ class App extends React.Component {
 				// Si il reste plus d'un item disponible
 				else if (order[key].name === veggie.name && order[key].nbItem < veggie.nbAvailable) {
 					// On ajoute 1 au nombre d'item 
-					veggie.nbItem = order[key].nbItem + 1
+					veggie.nbItem = order[key].nbItem + 1				
 				}
 			})
-		//On calcule le nouveau prix
-		veggie.price = veggie.nbItem * veggie.price
+
+		// Calcul du nouveau prix du veggie, en fonction du nombre d'item
+		Object
+			.keys(veggies)
+			.map(function (key3){
+				if (veggies[key3].name === veggie.name) {					
+					// Et on récupère le pix unitaire du légume courant, depuis le state VEGGIE
+					currentVeggieUnitPrice = veggies[key3].price
+				}
+			})
+		veggie.price = veggie.nbItem * currentVeggieUnitPrice
 		// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
 		order[veggie.name] = veggie;
-		//appliquer le state
+		// appliquer le state
 		this.setState({order});
 
 		// On ajoute au localStorage
-		// var orderToStock = {order}
-		// localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
+		var orderToStock = {order}
+		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
 	}
 
-	// Avant de rendre la page, à chaque rechargement
-	// componentWillMount(){
-	// 	if ((typeof JSON.parse(localStorage.getItem('currentOrder')) !== "undefined") 
-	// 	  && (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
-	// 	  this.setState({
-	// 		order: JSON.parse(localStorage.getItem('currentOrder')).order
-	// 	  })
-	// 	} 
-	// 	else {
-	// 	  this.setState({
-	// 		order: {}
-	// 	  })
-	// 	}
-  	// }
+	//Supprimer des Veggies dans notre commande
+	removeVeggieToOrder(veggie) {
+		//Pour mettre à jour le state en gardant ce qui est déjà dans le state
+		// on fait une copie de notre state order
+		const order = {...this.state.order}
+		const veggies = {...this.state.veggies}
+
+		var currentVeggieUnitPrice = 1
+
+		//Pour supprimer un item du légume en cours
+		Object
+			.keys(order)
+			.map(function (key){
+				// On regarde si le dernier item du veggie que l'on veut supprimer, est le dernier disponible
+				if (order[key].name === veggie.name && order[key].nbItem === veggie.nbAvailable) {
+					// On supprime 1 item
+					veggie.nbItem = order[key].nbItem - 1
+					Object
+						.keys(veggies)
+						.map(function (key2){
+							if (veggies[key2].name === veggie.name) {
+								// Et on change le status du veggie dans la liste des veggies
+								veggies[key2].status = "available"
+							}
+							
+						})
+				}
+				// 
+				else if (order[key].name === veggie.name && order[key].nbItem < veggie.nbAvailable && order[key].nbItem > 0) {
+					// On supprime 1 item 
+					veggie.nbItem = order[key].nbItem - 1
+				}
+			})
+		// Calcul du nouveau prix du veggie, en fonction du nombre d'item
+		Object
+			.keys(veggies)
+			.map(function (key3){
+				if (veggies[key3].name === veggie.name) {					
+					// Et on récupère le pix unitaire du légume courant, depuis le state VEGGIE
+					currentVeggieUnitPrice = veggies[key3].price
+				}
+			})
+		veggie.price = veggie.nbItem * currentVeggieUnitPrice
+		// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
+		order[veggie.name] = veggie;
+		// appliquer le state
+		this.setState({order});
+
+		// On ajoute au localStorage
+		var orderToStock = {order}
+		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
+	}
+
+	componentWillMount(){
+		if ((typeof JSON.parse(localStorage.getItem('currentOrder')) !== "undefined") 
+		  && (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
+		  this.setState({
+			order: JSON.parse(localStorage.getItem('currentOrder')).order
+		  })
+		} 
+		else {
+		  this.setState({
+			order: {}
+		  })
+		}
+  	}
 
 	render() {
 		return (
@@ -113,7 +177,7 @@ class App extends React.Component {
 					}
 					</ul>
 			  </div>
-			  <Order veggieToOrder={this.state.order}/>
+			  <Order veggieToOrder={this.state.order} removeVeggieToOrder={this.removeVeggieToOrder}/>
 			  <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples} />
 			</div>
 		  )

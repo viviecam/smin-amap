@@ -461,10 +461,6 @@ ul.order li span.count span {
   flex-direction: column 
 }
 
-.menu-veggie > div {
-  align-self: center;
-}
-
 .menu-veggie p {
   margin: 0;
   font-size: 1.8rem;
