@@ -6,10 +6,11 @@ class Veggie extends React.Component {
 
     getVeggie() {
         const veggie = {
+            id: this.props.details.id,
             name: this.props.details.name,
             price: this.props.details.price,
             status: this.props.details.status,
-            nbItem: 1,
+            nbItem: 0,
             nbAvailable: this.props.details.nbAvailable
         }
         this.props.addVeggieToOrder(veggie)

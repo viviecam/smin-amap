@@ -42,7 +42,7 @@ class App extends React.Component {
 		// On copie les sample veggies pour pouvoir travailler dessus
 		const exVeggies = sampleVeggies
 
-		// Pour chaque veggie que l'on s'apprête à aujouter au state VEGGIE
+		// Pour chaque veggie que l'on s'apprête à ajouter au state VEGGIE
 		Object
 			.keys(exVeggies)
 			.map(function(key){
@@ -60,7 +60,7 @@ class App extends React.Component {
 			})
 
 		this.setState({
-		  veggies: exVeggies })
+		  veggies: exVeggies})
 	}
 		
 	//Ajouter des Veggies dans notre commande
@@ -108,9 +108,9 @@ class App extends React.Component {
 			})
 		veggie.price = veggie.nbItem * currentVeggieUnitPrice
 		// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
-		order[veggie.name] = veggie;
+		order[veggie.id] = veggie;
 		// appliquer le state
-		this.setState({order});
+		this.setState({order})
 
 		// On update au localStorage
 		var orderToStock = {order}
@@ -161,7 +161,7 @@ class App extends React.Component {
 			})
 		veggie.price = veggie.nbItem * currentVeggieUnitPrice
 		// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
-		order[veggie.name] = veggie;
+		order[veggie.id] = veggie;
 		// appliquer le state
 		this.setState({order});
 
@@ -170,31 +170,72 @@ class App extends React.Component {
 		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
 	}
 
-	componentWillMount(){
+	componentDidMount(){
+		const initVeggie = sampleVeggies
+
+		// var currentVeggieUnitPrice = 1
+
+		// //Pour chaque légume que l'on ajoute dans le state order
+		// Object 
+		// 	.keys(initVeggie)
+		// 	.map(function(key){
+		// 		console.log("Nb items : " + initVeggie[key].nbItem + " & price : " + initVeggie[key].price)
+
+		// 		// On va chercher le prix unitaire du légume courant, dans sampleVeggies
+		// 		Object
+		// 		.keys(sampleVeggies)
+		// 		.map(function (key2){
+		// 			if (sampleVeggies[key2].name === initVeggie[key].name) {	
+		// 				console.log("On a récupéré le prix unitaire du légume : " + sampleVeggies[key2].name + " : " + 
+		// 			sampleVeggies[key2].price)
+		// 				currentVeggieUnitPrice = sampleVeggies[key2].price
+		// 				console.log(currentVeggieUnitPrice)
+		// 				initVeggie[key].price = initVeggie[key].nbItem * currentVeggieUnitPrice
+		// 				console.log(initVeggie[key].price)
+		// 				// Et on récupère le pix unitaire du légume courant, depuis le state VEGGIE
+		// 				// currentVeggieUnitPrice = veggies[key3].price
+		// 			}
+		// 		})
+		// 		// newPrice = initVeggie[key].price * initVeggie[key].nbItem
+		// 		// initVeggie[key] = newPrice;
+		// 	})
+
+		
+
+		this.setState({
+			order: initVeggie
+		}, () => {
+			// this.emptyOrder()
+			console.log(this.state.order)}
+		)
+
 		if ((typeof JSON.parse(localStorage.getItem('currentOrder')) !== "undefined") 
-		  && (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
-		  this.setState({
-			order: JSON.parse(localStorage.getItem('currentOrder')).order
-		  })
+			&& (JSON.parse(localStorage.getItem('currentOrder')) !== null)){
+				this.setState({
+				order: JSON.parse(localStorage.getItem('currentOrder')).order
+			})
 		} 
-		else {
-		  this.setState({
-			order: {}
-		  })
-		}
+		
+		
   	}
 
 	emptyOrder() {
-		this.setState({
-			order: {}
-		})
-
+		// On vide le localStorage
 		localStorage.clear();
 
-		const veggies = {...this.state.veggies}
+		// On réinitialise les nombres d'items à zéro dans le state ORDER
+		const order = {...this.state.order}
+		Object
+			.keys(order)
+			.map(function (key){
+				order[key].nbItem = 0,
+				order[key].price = 0
+			})
+	
 
 		// Pour réinitialiser le bouton disabled "Plus en stock", on réinitialise le statut du veggie,
 		// Dans le state VEGGIE, si le veggie a bien au moins 1 item disponible
+		const veggies = {...this.state.veggies}
 		Object
 			.keys(veggies)
 			.map(function (key){
@@ -202,9 +243,10 @@ class App extends React.Component {
 					veggies[key].status = "available"
 					// this
 				}
-			})
+			}) 
+
 		// On applique le state
-		this.setState({veggies});
+		this.setState({veggies, order});
 
 	}
 
