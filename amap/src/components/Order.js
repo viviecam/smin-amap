@@ -52,7 +52,7 @@ class Order extends React.Component {
 					</li>
 				</ul>
 				<br/>
-				<button onClick={() => "this.getVeggie()"}>Vider le panier</button>
+				<button onClick={() => this.props.emptyOrder()}>Vider le panier</button>
 			</div>
 
 		)

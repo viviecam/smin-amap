@@ -16,6 +16,7 @@ class App extends React.Component {
 		this.loadSamples = this.loadSamples.bind(this);
 		this.addVeggieToOrder = this.addVeggieToOrder.bind(this);
 		this.removeVeggieToOrder = this.removeVeggieToOrder.bind(this);
+		this.emptyOrder = this.emptyOrder.bind(this);
 
 		this.state = {
 			veggies: {},
@@ -92,7 +93,7 @@ class App extends React.Component {
 		// appliquer le state
 		this.setState({order});
 
-		// On ajoute au localStorage
+		// On update au localStorage
 		var orderToStock = {order}
 		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
 	}
@@ -145,7 +146,7 @@ class App extends React.Component {
 		// appliquer le state
 		this.setState({order});
 
-		// On ajoute au localStorage
+		// On update le localStorage
 		var orderToStock = {order}
 		localStorage.setItem('currentOrder', JSON.stringify(orderToStock)); 
 	}
@@ -164,6 +165,28 @@ class App extends React.Component {
 		}
   	}
 
+	emptyOrder() {
+		this.setState({
+			order: {}
+		})
+
+		const veggies = {...this.state.veggies}
+
+		// Pour réinitialiser le bouton disabled "Plus en stock", on réinitialise le statut du veggie,
+		// Dans le state VEGGIE, si le veggie a bien au moins 1 item disponible
+		Object
+			.keys(veggies)
+			.map(function (key){
+				if (veggies[key].nbAvailable >= 1) {
+					veggies[key].status = "available"
+					// this
+				}
+			})
+		// On applique le state
+		this.setState({veggies});
+
+	}
+
 	render() {
 		return (
 			<div className="amap">
@@ -177,7 +200,7 @@ class App extends React.Component {
 					}
 					</ul>
 			  </div>
-			  <Order veggieToOrder={this.state.order} removeVeggieToOrder={this.removeVeggieToOrder}/>
+			  <Order veggieToOrder={this.state.order} removeVeggieToOrder={this.removeVeggieToOrder} emptyOrder={this.emptyOrder}/>
 			  <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples} />
 			</div>
 		  )
