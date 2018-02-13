@@ -36,12 +36,31 @@ class App extends React.Component {
 		this.setState({veggies});
 	}
 	
-	//Ajouter des Veggies au catalogue (page de gauche) depuis le fichiers sample-veggies
+	//Ajouter des Veggies au catalogue depuis le fichiers sample-veggies
 	loadSamples() {
-		// console.log(sampleVeggies)
+		const order = {...this.state.order}
+		// On copie les sample veggies pour pouvoir travailler dessus
+		const exVeggies = sampleVeggies
+
+		// Pour chaque veggie que l'on s'apprête à aujouter au state VEGGIE
+		Object
+			.keys(exVeggies)
+			.map(function(key){
+			// On vérifie le nombre d'item de chaque veggie présent dans la commande (venant du local Storage)
+			// Si il y a le nombre maximum, on va modifier le status du veggie dans le state VEGGIE et 
+			// donc modifier le bouton "Plus en stock" en fonction
+				Object
+					.keys(order)
+					.map(function(key2){
+						if (order[key2].name === exVeggies[key].name && order[key2].nbItem === exVeggies[key].nbAvailable) {
+							// console.log("C'est le dernier!") 
+							exVeggies[key].status = "unavailable"
+						}
+				})
+			})
+
 		this.setState({
-		  veggies: sampleVeggies
-		});
+		  veggies: exVeggies })
 	}
 		
 	//Ajouter des Veggies dans notre commande
