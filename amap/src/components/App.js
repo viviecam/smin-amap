@@ -170,6 +170,8 @@ class App extends React.Component {
 			order: {}
 		})
 
+		localStorage.clear();
+
 		const veggies = {...this.state.veggies}
 
 		// Pour réinitialiser le bouton disabled "Plus en stock", on réinitialise le statut du veggie,
