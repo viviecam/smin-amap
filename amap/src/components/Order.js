@@ -16,7 +16,7 @@ class Order extends React.Component {
 							.map(function (key) {
 								return (
 									<li>
-										<p>{that.props.veggieToOrder[key].nbProduct} kg {that.props.veggieToOrder[key].name}</p>
+										<p>{that.props.veggieToOrder[key].nbItem} kg {that.props.veggieToOrder[key].name}</p>
 										{formatPrice(that.props.veggieToOrder[key].price)}
 									</li>)
 							})
@@ -35,6 +35,8 @@ class Order extends React.Component {
 						{formatPrice(totalPrice)}
 					</li>
 				</ul>
+				<br/>
+				<button onClick={() => "this.getVeggie()"}>Vider le panier</button>
 			</div>
 
 		)

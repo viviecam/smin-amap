@@ -40,30 +40,42 @@ class App extends React.Component {
 		this.setState({
 		  veggies: sampleVeggies
 		});
-		}
+	}
 		
 	//Ajouter des Veggies dans notre commande
 	addVeggieToOrder(veggie) {
 		//Pour mettre à jour le state en gardant ce qui est déjà dans le state
 		// on fait une copie de notre state order
 		const order = {...this.state.order}
-		//ajouter le legume choisi
-		// const timestamp = Date.now();
-		// veggiesOrder[`veggie-${timestamp}`] = veggie;
-		var that = this
+		const veggies = {...this.state.veggies}
 
+		//Pour ajouter le legume en cours
 		Object
-			.keys(this.state.order)
+			.keys(order)
 			.map(function (key){
-				// On regarde si le veggie que l'on veut ajouter existe déjà dans le state,
-				if (that.state.order[key].name === veggie.name) {
-					// Si oui, on ajoute 1 au nombre de produit 
-					veggie.nbProduct = that.state.order[key].nbProduct + 1
-					//On calcule le nouveau prix
-					veggie.price = veggie.nbProduct * veggie.price
+				// On regarde si le veggie que l'on veut ajouter existe déjà dans le state
+				// Et si c'est le dernier item que l'on peu ajouter avant qu'il n'y en ai plus
+				if (order[key].name === veggie.name && order[key].nbItem === veggie.nbAvailable-1) {
+					// On rajoute le dernier item
+					veggie.nbItem = order[key].nbItem + 1
+					// Et on change le status du veggie dans la liste des veggies
+					Object
+						.keys(veggies)
+						.map(function (key2){
+							if (veggies[key2].name === veggie.name) {
+								veggies[key2].status = "unavailable"
+							}
+						})
+				}
+				// Si il reste plus d'un item disponible
+				else if (order[key].name === veggie.name && order[key].nbItem < veggie.nbAvailable) {
+					// On ajoute 1 au nombre d'item 
+					veggie.nbItem = order[key].nbItem + 1
 				}
 			})
-			// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
+		//On calcule le nouveau prix
+		veggie.price = veggie.nbItem * veggie.price
+		// Puis on remplace l'ancien veggie par le nouveau, avec le nouveau nombre de produit et le nouveau prix
 		order[veggie.name] = veggie;
 		//appliquer le state
 		this.setState({order});
@@ -90,4 +102,4 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+export default App

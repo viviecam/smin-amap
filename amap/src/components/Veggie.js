@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPrice } from '../helpers';
 
 class Veggie extends React.Component {
 
@@ -7,7 +8,8 @@ class Veggie extends React.Component {
             name: this.props.details.name,
             price: this.props.details.price,
             status: this.props.details.status,
-            nbProduct: 1
+            nbItem: 1,
+            nbAvailable: this.props.details.nbAvailable
         }
         this.props.addVeggieToOrder(veggie)
     }
@@ -28,7 +30,7 @@ class Veggie extends React.Component {
                 <img src={details.image} alt=""/>
                 <h3 className="veggie-name">
                     {details.name}
-                    <span className="price">{details.price}</span>
+                    <span className="price">{formatPrice(details.price)}</span>
                 </h3>
                 <p>{details.desc}</p>
                 {ajoutPanier}
